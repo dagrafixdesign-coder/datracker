@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>DaTracker | Premium Life Tracker</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="title-group" style="display: flex; align-items: center; gap: 1rem;">
+                <img src="logo.png?v=3" alt="DaTracker Logo" style="height: 60px; object-fit: contain;">
+                <div>
+                    <h1>DaTracker</h1>
+                    <p>Small steps every day lead to big changes.</p>
+                </div>
+            </div>
+            <div class="date-group">
+                <div style="display: flex; gap: 1rem; align-items: center; justify-content: flex-end;">
+                    <div id="current-date">Friday, May 1st 2026</div>
+                    <button id="theme-toggle" class="btn-theme" title="Toggle Light/Dark Mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+                <div class="actions" style="margin-top: 1rem;">
+                    <button id="view-history" class="btn btn-secondary"><i class="fas fa-history"></i> History</button>
+                    <button id="export-pdf" class="btn btn-secondary"><i class="fas fa-file-pdf"></i> Export PDF</button>
+                    <button id="reset-day" class="btn btn-secondary"><i class="fas fa-redo"></i> Reset Day</button>
+                    <button id="save-day" class="btn btn-primary"><i class="fas fa-save"></i> Save Progress</button>
+                </div>
+            </div>
+        </header>
+
+        <div class="dashboard-grid">
+            <!-- Left Column: Routines & Health -->
+            <div class="column">
+                <!-- Morning Routine -->
+                <section class="card">
+                    <div class="card-header">
+                        <i class="fas fa-sun"></i>
+                        <h2>Morning Routine</h2>
+                    </div>
+                    <div class="checklist" id="morning-routine">
+                        <label class="check-item">
+                            <input type="checkbox" data-id="m1">
+                            <span>Wake up early (5:00 AM)</span>
+                        </label>
+                        <label class="check-item">
+                            <input type="checkbox" data-id="m2">
+                            <span>Exercise / Yoga</span>
+                        </label>
+                        <label class="check-item">
+                            <input type="checkbox" data-id="m3">
+                            <span>Meditation / Prayer</span>
+                        </label>
+                        <label class="check-item">
+                            <input type="checkbox" data-id="m4">
+                            <span>Healthy Breakfast</span>
+                        </label>
+                        <label class="check-item">
+                            <input type="checkbox" data-id="m5">
+                            <span>Plan My Day</span>
+                        </label>
+                    </div>
+                </section>
+
+                <!-- Day Priorities -->
+                <section class="card">
+                    <div class="card-header">
+                        <i class="fas fa-star"></i>
+                        <h2>Day Priorities (Top 3)</h2>
+                    </div>
+                    <div class="checklist" id="priorities">
+                        <div class="check-item">
+                            <span style="color: var(--accent-color); font-weight: bold;">1.</span>
+                            <input type="text" class="time-input" placeholder="Primary Goal..." data-id="p1">
+                        </div>
+                        <div class="check-item">
+                            <span style="color: var(--accent-color); font-weight: bold;">2.</span>
+                            <input type="text" class="time-input" placeholder="Secondary Goal..." data-id="p2">
+                        </div>
+                        <div class="check-item">
+                            <span style="color: var(--accent-color); font-weight: bold;">3.</span>
+                            <input type="text" class="time-input" placeholder="Tertiary Goal..." data-id="p3">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Health Tracker -->
+                <section class="card">
+                    <div class="card-header">
+                        <i class="fas fa-heartbeat"></i>
+                        <h2>Health Tracker</h2>
+                    </div>
+                    <div class="health-metrics">
+                        <div class="metric-box">
+                            <span class="metric-label">Water Intake</span>
+                            <div class="water-tracker" id="water-tracker">
+                                <div class="glass" data-idx="0"></div>
+                                <div class="glass" data-idx="1"></div>
+                                <div class="glass" data-idx="2"></div>
+                                <div class="glass" data-idx="3"></div>
+                                <div class="glass" data-idx="4"></div>
+                                <div class="glass" data-idx="5"></div>
+                                <div class="glass" data-idx="6"></div>
+                                <div class="glass" data-idx="7"></div>
+                            </div>
+                            <span class="metric-value" style="font-size: 0.9rem; margin-top: 0.5rem; display: block;" id="water-count">0 / 8 Glasses</span>
+                        </div>
+                        <div class="metric-box">
+                            <span class="metric-label">Sleep (Hours)</span>
+                            <input type="number" id="sleep-input" class="time-input" style="text-align: center;" value="8">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Evening Routine -->
+                <section class="card">
+                    <div class="card-header">
+                        <i class="fas fa-moon"></i>
+                        <h2>Evening Routine</h2>
+                    </div>
+                    <div class="checklist" id="evening-routine">
+                        <label class="check-item">
+                            <input type="checkbox" data-id="e1">
+                            <span>Review My Day</span>
+                        </label>
+                        <label class="check-item">
+                            <input type="checkbox" data-id="e2">
+                            <span>Family / Social Time</span>
+                        </label>
+                        <label class="check-item">
+                            <input type="checkbox" data-id="e3">
+                            <span>Prepare for Next Day</span>
+                        </label>
+                        <label class="check-item">
+                            <input type="checkbox" data-id="e4">
+                            <span>Read / Relax</span>
+                        </label>
+                        <label class="check-item">
+                            <input type="checkbox" data-id="e5">
+                            <span>Sleep on Time</span>
+                        </label>
+                    </div>
+                </section>
+
+                <!-- Daily Mood -->
+                <section class="card">
+                    <div class="card-header">
+                        <i class="fas fa-smile"></i>
+                        <h2>Daily Mood</h2>
+                    </div>
+                    <div class="mood-selector" id="mood-selector">
+                        <button class="mood-btn" data-mood="awesome" title="Awesome">🤩</button>
+                        <button class="mood-btn" data-mood="good" title="Good">😊</button>
+                        <button class="mood-btn" data-mood="neutral" title="Neutral">😐</button>
+                        <button class="mood-btn" data-mood="tired" title="Tired">🥱</button>
+                        <button class="mood-btn" data-mood="bad" title="Bad">😔</button>
+                    </div>
+                </section>
+
+                <!-- Daily Rating -->
+                <section class="card">
+                    <div class="card-header">
+                        <i class="fas fa-star-half-alt"></i>
+                        <h2>Daily Rating</h2>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span class="metric-label">Rate Your Day</span>
+                        <div class="stars" id="star-rating">
+                            <i class="far fa-star star" data-star="1"></i>
+                            <i class="far fa-star star" data-star="2"></i>
+                            <i class="far fa-star star" data-star="3"></i>
+                            <i class="far fa-star star" data-star="4"></i>
+                            <i class="far fa-star star" data-star="5"></i>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Notes / Reflection -->
+                <section class="card reflection-area">
+                    <div class="card-header">
+                        <i class="fas fa-pen-nib"></i>
+                        <h2>Notes / Reflection</h2>
+                    </div>
+                    <textarea id="notes-input" placeholder="How did today go? What did you learn?"></textarea>
+                </section>
+            </div>
+
+            <!-- Right Column: Time Tracker -->
+            <div class="column">
+                <section class="card time-card" style="height: 100%;">
+                    <div class="card-header">
+                        <i class="fas fa-stopwatch"></i>
+                        <h2>Time Block Tracker</h2>
+                    </div>
+                    <div class="time-grid" id="time-blocks">
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- History Modal -->
+    <div id="history-modal" class="modal hidden">
+        <div class="modal-content card">
+            <div class="modal-header">
+                <h2 style="display: flex; align-items: center; gap: 0.5rem; font-family: Outfit; font-size: 1.2rem;"><i class="fas fa-calendar-alt" style="color: var(--accent-color);"></i> Activity History</h2>
+                <button id="close-history" class="btn-icon"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="calendar-header">
+                <button id="prev-month" class="btn-icon"><i class="fas fa-chevron-left"></i></button>
+                <h3 id="current-month-year">May 2026</h3>
+                <button id="next-month" class="btn-icon"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="calendar-grid-labels">
+                <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+            </div>
+            <div class="calendar-grid" id="calendar-grid">
+                <!-- Calendar days will be injected here -->
+            </div>
+            <div id="history-list" class="hidden"></div> <!-- Keep for backward compatibility/logic if needed -->
+            <button id="return-today" class="btn btn-primary" style="margin-top: 1rem; width: 100%;">Return to Today</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
